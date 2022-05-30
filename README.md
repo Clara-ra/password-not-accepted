@@ -4,7 +4,7 @@ Making passwords should be easy, right? Except it's not. I was inspired to make 
 
 **Link to project:** TBD
 
-![alt tag](http://placecorgi.com/1200/650)
+![alt tag](https://github.com/Clara-ra/password-not-accepted/blob/main/screenshot.png)
 
 ## How It's Made:
 
