@@ -35,14 +35,15 @@ function checkPassword() {
     if (p.match(/\d$/)) return "Password cannot end with a digit."
     if (!astrologicalSign.find(sign => p.toLowerCase().includes(sign))) return "Password must contain your astrological sign."
     if (!p.match(/(?:[\u2648-\u2653])/)) return "Password must contain your astrological sign... as an emoji."
-    if (!astrologicalSign.find( (word, i) => p.toLowerCase().includes( word ) && p.match( astrologicalEmoji[i] ) )) return "Astrological sign and Astrological emoji do not match."
+    const chosenSign = astrologicalSign.find( (word, i) => p.toLowerCase().includes( word ) && p.match( astrologicalEmoji[i] ) );
+    if (!chosenSign) return "Astrological sign and Astrological emoji do not match."
     if (!p.match(/\p{Emoji_Modifier_Base}/u)) return "Password must contain an emoji of a person."
     //In this regex we are check to see that all 5 Code points are present, in any order.
     //(?= ) here refers to what is called a positive lookahead. It means we can match a pattern here without consuming characters. This is what allows us to check things in any order.
     //.* means we will accept any character 0 or more times. 
     // \u refers to a hex character. To check for Emoji diversity, we verifying that all 6 Fitzpatrick skin tones are present as Unicodes in the password.
     if (!p.match(/.*(?=.*\uD83C\uDFFB)(?=.*\uD83C\uDFFC)(?=.*\uD83C\uDFFD)(?=.*\uD83C\uDFFE)(?=.*\uD83C\uDFFF).*/g)) return "Emojis must be more diverse."
-    if (p.length > 46) return "Password is too long."
+    if (p.length > 31 + chosenSign.length) return "Password is too long."
     //I managed to do it under 36. Keep in mind each Emoji has a length of  on 2, plus this skin tones. This means each diverse emoji has a length of 4. Astrological sign emojis just so happen to be in the BMP so they have a length of 1.
     return ""
 }
@@ -78,6 +79,10 @@ const mostCommonPasses = ["123456", "password", "12345678", "qwerty", "123456789
 
 const astrologicalSign = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"]
 const astrologicalEmoji = [/\u2648/, /\u2649/, /\u264A/, /\u264B/, /\u264C/, /\u264D/, /\u264E/, /\u264F/, /\u2650/, /\u2651/, /\u2652/, /\u2653/]
+
+function lengthOfSign(pass) {
+
+}
 
 //There are a category of emojis that can be modified to have a different skin tone by appending one of 6 fitzpatrick skin tones. These tones are represented my unicode chacters in the Supplementary Multilingual Plane. This means that 
 
