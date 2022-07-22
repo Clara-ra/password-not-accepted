@@ -42,7 +42,7 @@ function checkPassword() {
     //.* means we will accept any character 0 or more times. 
     // \u refers to a hex character. To check for Emoji diversity, we verifying that all 6 Fitzpatrick skin tones are present as Unicodes in the password.
     if (!p.match(/.*(?=.*\uD83C\uDFFB)(?=.*\uD83C\uDFFC)(?=.*\uD83C\uDFFD)(?=.*\uD83C\uDFFE)(?=.*\uD83C\uDFFF).*/g)) return "Emojis must be more diverse."
-    if (p.length > 40) return "Password is too long."
+    if (p.length > 46) return "Password is too long."
     //I managed to do it under 36. Keep in mind each Emoji has a length of  on 2, plus this skin tones. This means each diverse emoji has a length of 4. Astrological sign emojis just so happen to be in the BMP so they have a length of 1.
     return ""
 }
