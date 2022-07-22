@@ -42,6 +42,7 @@ function checkPassword() {
     //(?= ) here refers to what is called a positive lookahead. It means we can match a pattern here without consuming characters. This is what allows us to check things in any order.
     //.* means we will accept any character 0 or more times. 
     // \u refers to a hex character. To check for Emoji diversity, we verifying that all 6 Fitzpatrick skin tones are present as Unicodes in the password.
+    //Since the unicode for Fitzpatrick skin tones is greater than 16 bits, The lead and tail surrogates are used for the calculation.
     if (!p.match(/.*(?=.*\uD83C\uDFFB)(?=.*\uD83C\uDFFC)(?=.*\uD83C\uDFFD)(?=.*\uD83C\uDFFE)(?=.*\uD83C\uDFFF).*/g)) return "Emojis must be more diverse."
     if (p.length > 31 + chosenSign.length) return "Password is too long."
     //I managed to do it under 36. Keep in mind each Emoji has a length of  on 2, plus this skin tones. This means each diverse emoji has a length of 4. Astrological sign emojis just so happen to be in the BMP so they have a length of 1.
@@ -80,16 +81,3 @@ const mostCommonPasses = ["123456", "password", "12345678", "qwerty", "123456789
 const astrologicalSign = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"]
 const astrologicalEmoji = [/\u2648/, /\u2649/, /\u264A/, /\u264B/, /\u264C/, /\u264D/, /\u264E/, /\u264F/, /\u2650/, /\u2651/, /\u2652/, /\u2653/]
 
-function lengthOfSign(pass) {
-
-}
-
-//There are a category of emojis that can be modified to have a different skin tone by appending one of 6 fitzpatrick skin tones. These tones are represented my unicode chacters in the Supplementary Multilingual Plane. This means that 
-
-//All characters have a numerical representation. One of the more popular standard is Unicode, as it has a comprehensive list including international languages. In Unicode, this numerical representation is called a Code point. Originally, the range of code points was 16 bits. This was enough to represent all the characters needed for the English Alphabet. 
-//Standard engish characters such as 'A' or '!' Have an address that can be represented with less than 16 bits. However, the Unicode Consortium ( the nonprofit that maintains Unicode ) decided that this wasn't enough. They substantially expanded the range of addresses to 17 planes (sometimes called the Astral plane), where each plane adds an additional 16 bits. The english languages lives in what is called the Basic Multilingual Plane (BMP). The next plane up is called the Supplementary Multilingual Plane, and this is where most Emojis live.
-//However, this complicates things a bit in Javascript. In Javascript, if you were to check the length of 1 emoji, you'd get back a length of 2. This is because in Javascript, a string is a sequence of 16-bit code points. Since emojis are made up of more than 16bits, the code point is split up into a pair of code points called the lead surrogate and tail surrogate. 
-//To get the lead surrogate and the tail surrogate, you subtract 0x10000 (the range of BMP) from the code point. Then, for the lead surrogate add 0xD800 and grab the 10 most significant bits. For the tail surrogate, you add 0xDC00 to the 10 least significant bits. 
-//You can use this pair to perform some Regex. 
-
-//Additionally, there is a category of emojis that can be modified that have a different skin tone. This is represented by prepending the emoji to 1 of 6 fitzpatrick skin types. Skin types have Code points that live in the SMP, which means that to use them the lead and tail surrogates must be calculated. 
