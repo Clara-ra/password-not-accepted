@@ -1,10 +1,10 @@
-# My Awesome Project
+# Password Not Accepted
 WORK IN PROGRESS
 Making passwords should be easy, right? Except it's not. I was inspired to make this after being prompted to make a password by a site that had various inane requirements that did not really help me ensure my account would be kept [safe.](https://pages.nist.gov/800-63-3/sp800-63b.html#sec5) See if you can successfully make a password...
 
 **Link to project:** TBD
 
-![alt tag](http://placecorgi.com/1200/650)
+![alt tag](https://github.com/Clara-ra/password-not-accepted/blob/main/screenshot.png)
 
 ## How It's Made:
 
